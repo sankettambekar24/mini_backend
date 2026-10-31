@@ -1,0 +1,34 @@
+services:
+  # Backend Django web service
+  - type: web
+    name: hybrid-secure-storage-backend
+    runtime: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt && DJANGO_SETTINGS_MODULE=config.settings.build python manage.py collectstatic --noinput"
+    startCommand: "gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120"
+    # Free web services do not support pre-deploy commands or shell access.
+    # Run production migrations manually from an operator workstation (see plan).
+    # Set DJANGO_SETTINGS_MODULE and all secret env vars in Render dashboard only.
+    # Never place real secrets in this file.
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.production
+      - key: DJANGO_SECRET_KEY
+        sync: false        # Set in Render dashboard
+      - key: JWT_SIGNING_KEY
+        sync: false        # Separate key from DJANGO_SECRET_KEY
+      - key: DATABASE_URL
+        sync: false        # Set in Render dashboard (Neon pooled PostgreSQL URL)
+      - key: REDIS_URL
+        sync: false        # Required shared Redis URL for production throttling
+      - key: PYTHON_VERSION
+        value: "3.14.6"
+      - key: DJANGO_ALLOWED_HOSTS
+        sync: false        # Set in Render dashboard
+      - key: DB_SSL_REQUIRE
+        value: "true"
+      - key: OFFLINE_POLICY_ISSUANCE_ENABLED
+        value: "false"
+    # Set exact HTTPS browser origins only if a browser frontend is later added.
+    # Native desktop clients do not use CORS; CSRF origins default empty.
+    healthCheckPath: /api/v1/health/ready/

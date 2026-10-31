@@ -1,0 +1,15 @@
+# Pinned production dependencies
+# Run: pip install -r requirements.txt
+# Keep all versions pinned and audit regularly.
+
+Django==6.0.6
+redis==8.1.0
+djangorestframework==3.18.3
+djangorestframework-simplejwt==5.5.1
+psycopg2-binary==2.9.13
+dj-database-url==3.1.2
+django-cors-headers==4.9.0
+gunicorn==26.2.0
+whitenoise==6.12.0
+PyJWT[crypto]==2.15.1
+cryptography==50.0.2

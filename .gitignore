@@ -1,0 +1,99 @@
+# Django / Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+wheels/
+.installed.cfg
+lib/
+lib64/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Environment and secrets — NEVER commit
+.env
+.env.*
+!.env.example
+staging.env
+staging.env.*
+!staging.env.example
+*.secret
+secrets/
+
+# Local databases — NEVER commit production data or SQLite files
+db.sqlite3
+*.sqlite3
+*.db
+
+# Django static/media
+staticfiles/
+mediafiles/
+
+# Logs
+*.log
+logs/
+
+# Biometric data — NEVER commit face encodings or fingerprint data
+*.pkl
+face_encoding*
+fingerprint*
+
+# Test and coverage
+.tox/
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+nosetests.xml
+test-reports/*.txt
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+# Local Python environment
+.venv/
+.venv.zip
+__pycache__/
+*.py[cod]
+
+# Secrets
+.env
+.env.*
+!.env.example
+staging.env
+staging.env.*
+!staging.env.example
+
+# Local databases
+db.sqlite3
+db.sqlite3-*
+
+# Generated files
+staticfiles/
+test-reports/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/

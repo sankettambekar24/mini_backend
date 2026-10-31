@@ -1,0 +1,32 @@
+
+services:
+  hss-postgres-test:
+    image: postgres:16
+    container_name: hss-postgres-test
+    environment:
+      POSTGRES_DB: hss_test_db
+      POSTGRES_USER: hss_test_user
+      POSTGRES_PASSWORD: HSS_Test_Only_2026_Secure
+    ports:
+      - "5433:5432"
+    volumes:
+      - hss_postgres_test_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hss_test_user -d hss_test_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  hss-redis-test:
+    image: redis:7
+    container_name: hss-redis-test
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  hss_postgres_test_data:
